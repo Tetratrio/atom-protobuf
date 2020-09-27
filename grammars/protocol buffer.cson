@@ -206,9 +206,40 @@
       }
     ]
   'comments':
-    'begin': '//'
-    'end': '\\n'
-    'name': 'comment.line.double-slash.protobuf'
+    'patterns': [
+      {
+        'begin': '/\\*'
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.definition.comment.begin.protobuf'
+        'end': '\\*/'
+        'endCaptures':
+          '0':
+            'name': 'punctuation.definition.comment.end.protobuf'
+        'name': 'comment.block.c'
+      }
+      {
+        'match': '\\*/.*\\n'
+        'name': 'invalid.illegal.stray-comment-end.protobuf'
+      }
+      {
+        'begin': '(^[ \\t]+)?(?=//)'
+        'beginCaptures':
+          '1':
+            'name': 'punctuation.whitespace.comment.leading.protobuf'
+        'end': '(?!\\G)'
+        'patterns': [
+          {
+            'begin': '//'
+            'beginCaptures':
+              '0':
+                'name': 'punctuation.definition.comment.protobuf'
+            'end': '(?=\\n)'
+            'name': 'comment.line.double-slash.protobuf'
+          }
+        ]
+      }
+    ]
   'extend_block':
     'begin': '\\b(extend)\\s+([A-Za-z0-9_]+)'
     'captures':
